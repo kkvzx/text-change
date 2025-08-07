@@ -1,0 +1,23 @@
+{
+  "name": "text-change",
+  "version": "1.0.0",
+  "description": "Extension containing methods to modify and copy highlighted text",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "tsc && vite build --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "Konrad Kazusek",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/chrome": "0.1.1",
+    "typescript": "5.9.2",
+    "vite": "7.0.6"
+  },
+  "dependencies": {
+    "@types/lodash": "4.17.20",
+    "lodash": "4.17.21"
+  }
+}
