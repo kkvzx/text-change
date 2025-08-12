@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Text Change",
+  "version": "1.0.0",
+  "author": "Konrad Kazusek",
+  "description": "Extension containing methods to modify and copy highlighted text",
+  "omnibox": {
+    "keyword": "api"
+  },
+  "permissions": [
+    "contextMenus",
+    "offscreen",
+    "clipboardWrite",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "19": "assets/icon19.png",
+    "38": "assets/icon38.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
