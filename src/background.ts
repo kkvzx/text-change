@@ -6,22 +6,28 @@ import startCase from "lodash/startCase";
 import upperCase from "lodash/upperCase";
 
 import OnClickData = chrome.contextMenus.OnClickData;
+import {OptionId} from "../types/optionId.ts";
 
-const options = [
-    {id: 'copy-to-camel-case', title: 'copyToCamelCase'},
-    {id: 'copy-to-kebab-case', title: 'copy-to-kebab-case'},
-    {id: 'copy-to-lower-case', title: 'copy to lower case'},
-    {id: 'copy-to-snake-case', title: 'copy_to_snake_case'},
-    {id: 'copy-to-start-case', title: 'Copy To Start Case'},
-    {id: 'copy-to-upper-case', title: 'COPY TO UPPER CASE'}
+interface Option {
+    id: OptionId,
+    title: string
+}
+
+const options: Option[] = [
+    {id: OptionId.KebabCase, title: 'copy-to-kebab-case'},
+    {id: OptionId.CamelCase, title: 'copyToCamelCase'},
+    {id: OptionId.LowerCase, title: 'copy to lower case'},
+    {id: OptionId.SnakeCase, title: 'copy_to_snake_case'},
+    {id: OptionId.StartCase, title: 'Copy To Start Case'},
+    {id: OptionId.UpperCase, title: 'COPY TO UPPER CASE'}
 ];
 
 const addToClipboard = async (text: string) => {
-await chrome.offscreen.createDocument({
-    url: 'offscreen.html',
-    reasons: [chrome.offscreen.Reason.CLIPBOARD],
-    justification: 'Write text to the clipboard.'
-})
+    await chrome.offscreen.createDocument({
+        url: 'offscreen.html',
+        reasons: [chrome.offscreen.Reason.CLIPBOARD],
+        justification: 'Write text to the clipboard.'
+    })
 
     // Now that we have an offscreen document, we can dispatch the
     // message.
@@ -32,32 +38,29 @@ await chrome.offscreen.createDocument({
     });
 }
 
-const handleCopyTransformation = async (info: OnClickData) =>{
+const handleCopyTransformation = async (info: OnClickData) => {
     try {
 
         let selectionText = info.selectionText;
-        const xd = kebabCase(selectionText);
 
-        console.log('selectionText: ', selectionText);
-        console.log('kebabCase: ', xd);
         switch (info.menuItemId) {
-            case 'copy-to-camel-case':
-                addToClipboard(camelCase(selectionText))
+            case OptionId.KebabCase:
+                void addToClipboard(kebabCase(selectionText))
                 break;
-            case 'copy-to-kebab-case':
-                addToClipboard(kebabCase(selectionText))
+            case OptionId.CamelCase:
+                void addToClipboard(camelCase(selectionText))
                 break;
-            case 'copy-to-lower-case':
-                addToClipboard(lowerCase(selectionText))
+            case OptionId.LowerCase:
+                void addToClipboard(lowerCase(selectionText))
                 break;
-            case 'copy-to-snake-case':
-                addToClipboard(snakeCase(selectionText))
+            case OptionId.SnakeCase:
+                void addToClipboard(snakeCase(selectionText))
                 break;
-            case 'copy-to-start-case':
-                addToClipboard(startCase(selectionText))
+            case OptionId.StartCase:
+                void addToClipboard(startCase(selectionText))
                 break;
-            case 'copy-to-upper-case':
-                addToClipboard(upperCase(selectionText))
+            case OptionId.UpperCase:
+                void addToClipboard(upperCase(selectionText))
                 break;
         }
     } catch (error) {

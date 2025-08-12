@@ -1,21 +1,11 @@
-// Once the message has been posted from the service worker, checks are made to
-// confirm the message type and target before proceeding. This is so that the
-// module can easily be adapted into existing workflows where secondary uses for
-// the document (or alternate offscreen documents) might be implemented.
-
-// Registering this listener when the script is first executed ensures that the
-// offscreen document will be able to receive messages when the promise returned
-// by `offscreen.createDocument()` resolves.
 import {MessageEvent} from "../types/messageEvent.ts";
 
 chrome.runtime.onMessage.addListener(handleMessages);
 
 // This function performs basic filtering and error checking on messages before
-// dispatching the
-// message to a more specific message handler.
+// dispatching the message to a more specific message handler.
 async function handleMessages(message: MessageEvent) {
     // Return early if this message isn't meant for the offscreen document.
-    window.console.log('message: ', message);
     if (message.target !== 'offscreen-doc') {
         return;
     }
